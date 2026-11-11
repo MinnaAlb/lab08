@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Lab 08 login form that posts a username, password and hidden user token to process.php">
-  <meta name="keywords" content="PHP, login, form, hidden field, POST, lab 08">
-  <meta name="author" content="Minna">
-  <title>Lab 08 - Login</title>
-</head>
-<body>
-  <header>
-    <h1>Login</h1>
-  </header>
-
+<?php
+  // login is .php (not .html) so the server runs the include statements below
+  $page_title = "Lab 08 - Login";
+  $page_description = "Lab 08 login form that posts a username, password and hidden user token to process.php";
+  include "header.inc";
+?>
   <main>
+    <?php
+      // process.php sends the user back here with ?error=1 when the login is wrong
+      if (isset($_GET["error"])) {
+          echo "<p><strong>Invalid username or password. Please try again.</strong></p>";
+      }
+    ?>
+
     <!-- POST keeps the password out of the URL; process.php reads the values from $_POST -->
     <form method="post" action="process.php">
       <!-- Each label's "for" matches an input id so the W3C validator passes and screen readers link them -->
@@ -29,5 +27,4 @@
       <input type="submit" value="Login">
     </form>
   </main>
-</body>
-</html>
+<?php include "footer.inc"; ?>

@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Lab 08 page that receives the login form data sent by POST">
-  <meta name="keywords" content="PHP, POST, hidden field, lab 08">
-  <meta name="author" content="Minna">
-  <title>Lab 08 - Process Login</title>
-</head>
-<body>
-  <main>
-    <h1>Login received</h1>
-    <?php
-      // Only read the form values if the page was reached by submitting the form
-      if ($_SERVER["REQUEST_METHOD"] === "POST") {
-          // htmlspecialchars stops any HTML typed into the form from running on this page
-          $username = htmlspecialchars(trim($_POST["username"] ?? ""));
-          $token    = htmlspecialchars(trim($_POST["token"] ?? ""));
+<?php
+  // Start (or resume) the session before any output, so $_SESSION can be written
+  session_start();
 
-          echo "<p>Username: <strong>$username</strong></p>";
-          echo "<p>Hidden token: <strong>$token</strong></p>";
-      } else {
-          // Someone opened process.php directly, so send them back to the form
-          echo "<p>No form data received. <a href=\"login.html\">Go to the login page</a>.</p>";
-      }
-    ?>
-  </main>
-</body>
-</html>
+  // Read the form values; ?? "" avoids a warning if the page is opened without the form
+  $username = trim($_POST["username"] ?? "");
+  $password = trim($_POST["password"] ?? "");
+  $token    = trim($_POST["token"] ?? "");
+
+  // Correct login is my name and my student ID
+  if ($username === "Minna" && $password === "106195562") {
+      // Remember who logged in, plus the hidden token, for the welcome page
+      $_SESSION["user"]  = $username;
+      $_SESSION["token"] = $token;
+      header("Location: welcome.php");
+      exit();
+  } else {
+      // Wrong details: send the user back to the login page with an error flag
+      header("Location: login.php?error=1");
+      exit();
+  }
+?>
