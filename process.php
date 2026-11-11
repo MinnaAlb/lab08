@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Lab 08 page that receives the login form data sent by POST">
   <meta name="keywords" content="PHP, POST, hidden field, lab 08">
-  <meta name="author" content="Ahmed">
+  <meta name="author" content="Minna">
   <title>Lab 08 - Process Login</title>
 </head>
 <body>
